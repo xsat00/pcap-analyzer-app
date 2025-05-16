@@ -5,6 +5,29 @@ import plotly.express as px
 from collections import Counter
 import tempfile
 
+# At the top of your app.py
+import streamlit as st
+
+# Dummy credentials
+USER = "admin"
+PASS = "007"
+
+# Login check
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.title("🔐 Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    if st.button("Login"):
+        if username == USER and password == PASS:
+            st.session_state.authenticated = True
+            st.experimental_rerun()
+        else:
+            st.error("Invalid credentials")
+    st.stop()
+
 st.set_page_config(page_title="🔍 Advanced PCAP Analyzer", layout="wide")
 st.title("📡 Advanced PCAP Network Traffic Analyzer")
 
@@ -98,5 +121,13 @@ if uploaded_file:
         st.markdown("---")
         st.caption("Developed by Xsat for DRDO | Protocols: TCP, UDP, ICMP, ARP, DNS, HTTP")
 
+    st.subheader("📥 Download Packet Report")
+csv = filtered_df.to_csv(index=False).encode("utf-8")
+st.download_button(
+    label="Download as CSV",
+    data=csv,
+    file_name="pcap_analysis.csv",
+    mime="text/csv"
+)
     except Exception as e:
         st.error(f"❌ Error processing PCAP: {e}")
