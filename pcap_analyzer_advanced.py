@@ -12,21 +12,25 @@ import streamlit as st
 USER = "admin"
 PASS = "007"
 
-# Login check
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
 if not st.session_state.authenticated:
     st.title("🔐 Login")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+
+    username = st.text_input("Username", key="username")
+    password = st.text_input("Password", type="password", key="password")
+
     if st.button("Login"):
         if username == USER and password == PASS:
             st.session_state.authenticated = True
             st.experimental_rerun()
         else:
             st.error("Invalid credentials")
+
     st.stop()
+
+
 
 st.set_page_config(page_title="🔍 Advanced PCAP Analyzer", layout="wide")
 st.title("📡 Advanced PCAP Network Traffic Analyzer")
