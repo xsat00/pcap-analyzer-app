@@ -120,14 +120,15 @@ if uploaded_file:
 
         st.markdown("---")
         st.caption("Developed by Xsat for DRDO | Protocols: TCP, UDP, ICMP, ARP, DNS, HTTP")
+)
+ except Exception as e:
+    st.error(f"Failed to parse PCAP file: {e}")
+    packets_df = None
 
-    st.subheader("📥 Download Packet Report")
+st.subheader("📥 Download Packet Report")
 csv = filtered_df.to_csv(index=False).encode("utf-8")
 st.download_button(
     label="Download as CSV",
     data=csv,
     file_name="pcap_analysis.csv",
     mime="text/csv"
-)
-    except Exception as e:
-        st.error(f"❌ Error processing PCAP: {e}")
