@@ -120,7 +120,7 @@ if uploaded_file:
 
         st.markdown("---")
         st.caption("Developed by Xsat for DRDO | Protocols: TCP, UDP, ICMP, ARP, DNS, HTTP")
- except Exception as e:
+     except Exception as e:
     st.error(f"Failed to parse PCAP file: {e}")
     packets_df = None
 
