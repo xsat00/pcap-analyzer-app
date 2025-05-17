@@ -5,13 +5,11 @@ import plotly.express as px
 from collections import Counter
 import tempfile
 
-# At the top of your app.py
-import streamlit as st
-
 # Dummy credentials
 USER = "admin"
 PASS = "007"
 
+# Login check and UI
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
@@ -27,11 +25,9 @@ if not st.session_state.authenticated:
             st.experimental_rerun()
         else:
             st.error("Invalid credentials")
-
     st.stop()
 
-
-
+# After login, main app starts
 st.set_page_config(page_title="🔍 Advanced PCAP Analyzer", layout="wide")
 st.title("📡 Advanced PCAP Network Traffic Analyzer")
 
